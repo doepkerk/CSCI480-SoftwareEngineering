@@ -1,0 +1,28 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	background: orange;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+}
+
+.container{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 200px;
+}
+
+.charts{
+	padding: 2rem;
+	border: 1px solid #f49131;
+	border-radius: 1rem;
+	background: black;
+	box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
+}
