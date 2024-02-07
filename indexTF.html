@@ -2,22 +2,31 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge">
 	<meta name="viewport" content="width=device-width", initial-scale=1.0">
-	<link rel="stylesheet" href="net_speed_charts_TF_styles.css">
 	<title>Tyler Ferris Network Speeds</title>
+	<link rel="stylesheet" href="net_speed_charts_TF_styles.css">
 </head>
+
 <body>
+	<header class="header">
+		<a href="" class="logo">Tyler Ferris</a>
+		
+		<nav class="navbar">
+			<a href="">DAY</a>
+			<a href="">WEEK</a>
+			<a href="">MONTH</a>
+		</nav>
+	</header>
+	
 	<div class="container">
 		<div class="charts">
 			<canvas id="firstChart" width="300" height="300"></canvas>
 		</div>
-		<div class="charts">
-			<canvas id="secondChart" width="300" height="300"></canvas>
-		</div>
-	
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>
 	<script src="chart.js"></script>
-
 </body>
+
 </html>
+
