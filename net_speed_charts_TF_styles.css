@@ -7,7 +7,7 @@
 
 body{
 	min-height: 100vh;
-	background: white;
+	background: black;
 	align-items: center;
 	justify-content: center;
 	display: flex;
@@ -28,18 +28,20 @@ body{
 
 .logo{
 	font-size: 32px;
-	color: black;
+	color: white;
 	text-decoration: none;
 	font-weight: 700;
+	font-family: 'Roboto', sans-serif;
 }
 
 .navbar a{
 	position: relative;
 	font-size: 18px;
-	color: black;
+	color: white;
 	font-weight: 500;
 	text-decoration: none;
 	margin-left: 40px;
+	font-family: 'Roboto', sans-serif
 }
 
 .navbar a::before{
@@ -68,7 +70,14 @@ body{
 	padding: 2rem;
 	border: 1px solid #f49131;
 	border-radius: 1rem;
-	background: black;
+	background: white;
 	box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
 }
+
+.footer {
+	padding: 20px;
+	text-align: center;
+	background: #ddd;
+	margin-top: 20px;
+  }
 
