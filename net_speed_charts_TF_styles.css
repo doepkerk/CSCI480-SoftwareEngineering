@@ -5,6 +5,7 @@
 	font-family: Times New Roman, sans-serif;
 }
 
+/*body styles*/
 body{
 	min-height: 100vh;
 	background: black;
@@ -13,6 +14,7 @@ body{
 	display: flex;
 }
 
+/*header styles*/
 .header{
 	position: fixed;
 	top: 0;
@@ -26,6 +28,7 @@ body{
 	z-index: 100;
 }
 
+/*header title styles*/
 .logo{
 	font-size: 32px;
 	color: white;
@@ -34,6 +37,7 @@ body{
 	font-family: 'Roboto', sans-serif;
 }
 
+/*navigation bar styles*/
 .navbar a{
 	position: relative;
 	font-size: 18px;
@@ -59,6 +63,7 @@ body{
 	width: 100%;
 }
 
+/*time interval selection box styles*/
 .select-interval
 {
 	display: flex;
@@ -79,6 +84,7 @@ body{
 	font-size: 20px;
 }
 
+/*chart styles*/
 .container{
 	display: flex;
 	align-items: center;
@@ -94,6 +100,7 @@ body{
 	box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
 }
 
+/*footer styles*/
 footer {
 	text-align: center;
 	background: black;
@@ -104,6 +111,7 @@ footer {
 	padding: 10px;
   }
 
+/*paragraph styles*/
 p {
 	font-family: 'Roboto', sans-serif;
 	color: white;
