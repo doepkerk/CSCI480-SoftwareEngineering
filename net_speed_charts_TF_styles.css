@@ -59,6 +59,26 @@ body{
 	width: 100%;
 }
 
+.select-interval
+{
+	display: flex;
+	justify-content: center;
+	position: relative;
+	min-width: 250px;
+	height: 50px;
+}
+
+.select-box
+{
+	border: none;
+	appearance: none;
+	padding: 0 30px 0 15px;
+	width: 100%;
+	color: white;
+	background-color: orange;
+	font-size: 20px;
+}
+
 .container{
 	display: flex;
 	align-items: center;
