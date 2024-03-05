@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #212121;
-    color: #9e9ea4;
+    color: #fdb94e;
     font-family: "Roboto", sans-serif;
 }
 
@@ -126,19 +126,19 @@ a {
 }
 
 .card:first-child {
-    background-color: #FFB000;
+    background-color: #fdb94e;
 }
 
 .card:nth-child(2) {
-    background-color: #C9860A;
+    background-color: #f9a852;
 }
 
 .card:nth-child(3) {
-    background-color: #966700;
+    background-color: #f69653;
 }
 
 .card:nth-child(4) {
-    background-color: #5C3F00;
+    background-color: #f38654;
 }
 
 .card-inner {
