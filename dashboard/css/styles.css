@@ -91,6 +91,14 @@ a {
     cursor: pointer;
 }
 
+.sidebar-list-item a {
+	color: white;
+}
+
+.sidebar-list-item a:hover {
+	color: #fdb94e;
+}
+
 .sidebar-responsive {
     display: inline !important;
     position: absolute;
