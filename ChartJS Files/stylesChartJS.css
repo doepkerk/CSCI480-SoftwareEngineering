@@ -167,7 +167,7 @@ a {
     width: 100vw;
     height: 40px;
     background: #1A1A1A;
-    color: rgba(54, 162, 235, 1);
+    color: #fdb94e;
 }
 
 .chartMenu p {
@@ -188,7 +188,7 @@ a {
     width: 700px;
     padding: 20px;
     border-radius: 20px;
-    border: solid 3px rgba(54, 162, 235, 1);
+    border: solid 3px #fdb94e;
     background: white;
 }
 
