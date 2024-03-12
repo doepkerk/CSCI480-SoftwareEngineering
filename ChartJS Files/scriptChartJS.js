@@ -19,28 +19,6 @@ function closeSidebar() {
   }
 }
 
-// reads in json file
-// const df = fetch("/home/csci/speeds.json")
-//   .then((res) => {
-//     if (!res.ok) {
-//       throw new Error
-//         (`HTTP error! Status: ${res.status}`);
-//     }
-//     return res.json();
-//   })
-//   .then((data) =>
-//     console.log(data))
-//   .catch((error) =>
-//     console.error("Unable to fetch data:", error));
-
-// Data for Previous 24 Hours for ApexCharts
-// let daySpeeds = [];
-
-// for(i=0; i < 24; i++) {
-//   daySpeeds += df.upload[i];
-// }
-
-
 // Data for Previous 24 Hours for Chart.js
 function updateChart() {
   async function fetchData() {
