@@ -1,4 +1,10 @@
+"use strict"
 
+// imports the local file to use on local server
+import netSpeeds from "./speeds.json" assert {type: "json"};
+
+// view the results in console of developer mode (F12) in browser
+console.log(netSpeeds);
 
 // SIDEBAR TOGGLE
 
@@ -19,10 +25,10 @@ function closeSidebar() {
   }
 }
 
-// Data for Previous 24 Hours for Chart.js
+/* Data for Previous 24 Hours for Chart.js
 function updateChart() {
   async function fetchData() {
-    const path = "/home/csci/speeds.json"
+    const path = "speeds.json"
     const response = await fetch(path);
 
     const datapoints = await response.json();
@@ -31,7 +37,7 @@ function updateChart() {
   };
 
   fetchData().then(datapoints => {
-    const uploadData = datapoints[0].map(function (index) {
+    const uploadData = datapoints.map(function (index) {
       return index.upload;
     })
 
@@ -39,13 +45,18 @@ function updateChart() {
       return index.download;
     })
 
-    console.log(uploadData)
-    console.log(downloadData)
-    lineChart.config.data.labels = uploadData;
+    const timeStampData = datapoints.map(function(index) {
+      return index.timestamp;
+    })
+
+    console.log(uploadData);
+    console.log(downloadData);
+    console.log(timeStampData);
+    lineChart.config.data.labels = timeStampData;
     lineChart.config.data.datasets[0].data = downloadData;
     lineChart.update();
   });
-}
+}*/
 
 // CHARTS
 
