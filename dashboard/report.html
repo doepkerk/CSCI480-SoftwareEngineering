@@ -73,10 +73,57 @@
             <!-- Main -->
             <main class="main-container">
                 <div class="main-title"> 
-                   <h2>REPORT - Last Updated 3/5/2024</h2> 
+                   <h2>REPORT</h2> 
                 </div>
 
-                <p>REPORT</p>
+                <p>
+                    <div id="current_date">
+                        <script>
+                            date = new Date();
+                            year = date.getFullYear();
+                            month = date.getMonth() + 1;
+                            day = date.getDate();
+                            document.getElementById("current_date").innerHTML = "Current Date: " + month + "/" + day + "/" + year;
+                        </script>
+                    </div>
+                </p>
+
+                <div class="tablereport">
+                    <table style="width:100%">
+                        <tr style="height:50px">
+                            <th>Time Period</th>
+                            <th>Average Upload Speeds</th>
+                            <th>Average Download Speeds</th>
+                        </tr>
+                        <tr style="height:50px">
+                            <td>Past 24 Hours</td>
+                            <td>mbps</td>
+                            <td>mbps</td>
+                        </tr>
+                        <tr style="height:50px">
+                            <td>Past Week</td>
+                            <td>mbps</td>
+                            <td>mbps</td>
+                        </tr>
+                        <tr style="height:50px">
+                            <td>Past Month</td>
+                            <td>mbps</td>
+                            <td>mbps</td>
+                        </tr>
+                        <tr style="height:50px">
+                            <td>Overall</td>
+                            <td>mbps</td>
+                            <td>mbps</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <p>Click button below to generate PDF summary report.</p>
+
+                <div class="pdf-button">
+                    <button onclick="downloadPDFWithBrowserPrint()">Generate PDF File</button>  
+                </div>
+            
             </main>
             <!-- End Main -->
     

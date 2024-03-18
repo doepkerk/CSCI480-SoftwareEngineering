@@ -160,11 +160,8 @@ a {
 }
 
 .charts {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 20px;
     margin-top: 60px;
-    margin-bottom: 20px;
 }
 
 .charts-card {
@@ -181,6 +178,30 @@ a {
     display: flex;
     align-items: center;
     justify-items: center;
+}
+
+button {
+    text-align: center;
+    width: 25%;
+    height: 40px;
+}
+
+.pdf-button, .fetch-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ----- Table ----- */
+table, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: white;
+}
+
+th, td {
+    color: black;
 }
 
 /* ----- Media Queries ----- */

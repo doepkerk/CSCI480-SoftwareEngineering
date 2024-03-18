@@ -19,6 +19,12 @@ function closeSidebar() {
   }
 }
 
+// REPORT DOWNLOAD PDF
+function downloadPDFWithBrowserPrint() {
+  window.print();
+}
+document.querySelector('#browserPrint').addEventListener('click', downloadPDFWithBrowserPrint);
+
 // Data for Previous 24 Hours for Chart.js
 function updateChart() {
   fetch('speeds.json')
