@@ -97,15 +97,16 @@ function updateChart() {
           },
           grid: {
             row: {
-              colors: ['#212121', 'transparent'], // takes an array which will be repeated on columns
+              colors: ['whitesmoke', 'transparent'], // takes an array which will be repeated on columns
               opacity: 0.5
             },
           },
+          colors: ["#f38654"],
           xaxis: {
             categories: labels,
             labels: {
               style: {
-                colors: "#FFFFFF"
+                colors: "#black"
               }
             }
           }
