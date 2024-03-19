@@ -49,11 +49,15 @@ function updateChart() {
 
       // stores 24 hours worth of data into 3 arrays
       function getHourly(upload, download, hour) {
-        for(let i=0; i<24;i++) {
+        for(let i=hour.length-1; i>(hour.length - 25);i--) {
           hourlyUpload.push(upload[i]);
           hourlyDownload.push(download[i]);
           hourly.push(hour[i]);
         };
+
+        hourlyUpload.reverse();
+        hourlyDownload.reverse();
+        hourly.reverse();
 
         console.log(hourlyDownload);
         console.log(hourly);
@@ -75,7 +79,7 @@ function updateChart() {
       function setupChart(lineData, labels, chartTitle){
         var lineChartOptions = {
           series: [{
-            name: "Mbps",
+            name: "MBps",
             data: lineData
           }],
           chart: {
@@ -97,16 +101,15 @@ function updateChart() {
           },
           grid: {
             row: {
-              colors: ['whitesmoke', 'transparent'], // takes an array which will be repeated on columns
+              colors: ['#212121', 'transparent'], // takes an array which will be repeated on columns
               opacity: 0.5
             },
           },
-          colors: ["#f38654"],
           xaxis: {
             categories: labels,
             labels: {
               style: {
-                colors: "#black"
+                colors: "#FFFFFF"
               }
             }
           }
@@ -115,8 +118,8 @@ function updateChart() {
         return lineChartOptions;
       }
 
-      var downloadChart = new ApexCharts(document.querySelector("#download-chart"), setupChart(hourlyDownload, hourly, "Download Speeds (Mbps)"));
-      var uploadChart = new ApexCharts(document.querySelector("#upload-chart"), setupChart(hourlyUpload, hourly, "Upload Speeds (Mbps)"));
+      var downloadChart = new ApexCharts(document.querySelector("#download-chart"), setupChart(hourlyDownload, hourly, "Download Speeds"));
+      var uploadChart = new ApexCharts(document.querySelector("#upload-chart"), setupChart(hourlyUpload, hourly, "Upload Speeds"));
       downloadChart.render();
       uploadChart.render();
 
