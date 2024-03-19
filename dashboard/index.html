@@ -145,8 +145,14 @@
                 </div>
 
                 <div class="fetch-button">
-                    <button onclick="updateChart()">Fetch Data</button>
+                    <button onclick="updateChart()">Fetch Latest Data</button>
                 </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        updateChart();
+                    });
+                </script>
                 
             </main>
             <!-- End Main -->
