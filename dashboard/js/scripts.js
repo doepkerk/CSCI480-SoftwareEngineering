@@ -75,7 +75,7 @@ function updateChart() {
       function setupChart(lineData, labels, chartTitle){
         var lineChartOptions = {
           series: [{
-            name: "MBps",
+            name: "Mbps",
             data: lineData
           }],
           chart: {
@@ -115,8 +115,8 @@ function updateChart() {
         return lineChartOptions;
       }
 
-      var downloadChart = new ApexCharts(document.querySelector("#download-chart"), setupChart(hourlyDownload, hourly, "Download Speeds"));
-      var uploadChart = new ApexCharts(document.querySelector("#upload-chart"), setupChart(hourlyUpload, hourly, "Upload Speeds"));
+      var downloadChart = new ApexCharts(document.querySelector("#download-chart"), setupChart(hourlyDownload, hourly, "Download Speeds (Mbps)"));
+      var uploadChart = new ApexCharts(document.querySelector("#upload-chart"), setupChart(hourlyUpload, hourly, "Upload Speeds (Mbps)"));
       downloadChart.render();
       uploadChart.render();
 
