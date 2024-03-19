@@ -125,3 +125,106 @@ function updateChart() {
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
+
+/*
+function updateWeekChart() {
+  fetch('speeds.json')
+    .then(response => response.json())
+    .then(data => {
+      // Extract relevant information
+      var timestamps = data.map(entry => new Date(entry.timestamp).toLocaleTimeString());
+      var downloadSpeeds = data.map(entry => entry.download);
+      var uploadSpeeds = data.map(entry => entry.upload);
+
+      //converts speeds from bits to Mb to 2 decimals
+      function speedConversion(speeds){
+        for(let i=0;i<speeds.length;i++){
+          speeds[i]= speeds[i]/1000000;
+          speeds[i]= speeds[i].toFixed(2);
+        }
+      }
+
+      let dailyDownload = [];
+      let dailyUpload = [];
+      let days = [];
+      let currentDate = new Date();
+      currentDate.setDate(currentDate.getDate() - 1); // Start from yesterday
+
+      // stores 24 hours worth of data into 3 arrays
+      function getWeeklyAverages(upload, download, hour) {
+        let count = 0;
+
+        if(count = 0){
+          for(let i=hour.length-1; i>(hour.length - 24);i--) {
+            hourlyUpload.push(upload[i]);
+            hourlyDownload.push(download[i]);
+            hourly.push(hour[i]);
+          };
+        }
+
+        console.log(hourlyDownload);
+        console.log(hourly);
+      }
+
+      speedConversion(downloadSpeeds);
+      speedConversion(uploadSpeeds);
+      getHourly(uploadSpeeds, downloadSpeeds, timestamps);
+      console.log(timestamps);
+      console.log(downloadSpeeds);
+      console.log(uploadSpeeds);
+
+
+
+      // CHARTS
+
+      // line chart
+
+      function setupChart(lineData, labels, chartTitle){
+        var lineChartOptions = {
+          series: [{
+            name: "MBps",
+            data: lineData
+          }],
+          chart: {
+            height: 350,
+            type: 'line',
+            zoom: {
+              enabled: false
+            }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: 'smooth',
+          },
+          title: {
+            text: chartTitle,
+            align: 'left'
+          },
+          grid: {
+            row: {
+              colors: ['#212121', 'transparent'], // takes an array which will be repeated on columns
+              opacity: 0.5
+            },
+          },
+          xaxis: {
+            categories: labels,
+            labels: {
+              style: {
+                colors: "#FFFFFF"
+              }
+            }
+          }
+        };
+
+        return lineChartOptions;
+      }
+
+      var downloadChart = new ApexCharts(document.querySelector("#download-chart"), setupChart(hourlyDownload, hourly, "Download Speeds"));
+      var uploadChart = new ApexCharts(document.querySelector("#upload-chart"), setupChart(hourlyUpload, hourly, "Upload Speeds"));
+      downloadChart.render();
+      uploadChart.render();
+
+    }).catch(error => console.error('Error fetching JSON:', error));
+}*/
