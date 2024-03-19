@@ -262,4 +262,7 @@ th, td {
     .header-left {
         display: none;
     }
+    .card {
+        display:none;
+    }
 }
