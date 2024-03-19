@@ -159,6 +159,12 @@ a {
     font-size: 45px;
 }
 
+h1 {
+    font-size: 23px;
+
+}
+
+/* ----- CHARTS ----- */
 .charts {
     gap: 20px;
     margin-top: 60px;
