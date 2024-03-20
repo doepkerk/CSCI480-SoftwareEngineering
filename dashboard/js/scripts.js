@@ -31,15 +31,17 @@ function updateChart() {
     .then(response => response.json())
     .then(data => {
       // Extract relevant information
-      var timestamps = data.map(entry => new Date(entry.timestamp).toLocaleTimeString());
+      var timestamps = data.map(entry => {
+        let entryDate = new Date(entry.timestamp);
+        return entryDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      });
       var downloadSpeeds = data.map(entry => entry.download);
       var uploadSpeeds = data.map(entry => entry.upload);
 
       //converts speeds from bits to Mb to 2 decimals
-      function speedConversion(speeds){
-        for(let i=0;i<speeds.length;i++){
-          speeds[i]= speeds[i]/1000000;
-          speeds[i]= speeds[i].toFixed(2);
+      function speedConversion(speeds) {
+        for (let i = 0; i < speeds.length; i++) {
+          speeds[i] = (speeds[i] / 1000000).toFixed(2);
         }
       }
 
@@ -49,7 +51,7 @@ function updateChart() {
 
       // stores 24 hours worth of data into 3 arrays
       function getHourly(upload, download, hour) {
-        for(let i=hour.length-1; i>(hour.length - 25);i--) {
+        for (let i = hour.length - 1; i > (hour.length - 25); i--) {
           hourlyUpload.push(upload[i]);
           hourlyDownload.push(download[i]);
           hourly.push(hour[i]);
@@ -76,7 +78,7 @@ function updateChart() {
 
       // line chart
 
-      function setupChart(lineData, labels, chartTitle){
+      function setupChart(lineData, labels, chartTitle) {
         var lineChartOptions = {
           series: [{
             name: "MBps",
@@ -109,7 +111,7 @@ function updateChart() {
             categories: labels,
             labels: {
               style: {
-                colors: "#FFFFFF"
+                colors: "#000000"
               }
             }
           }
@@ -141,12 +143,10 @@ function updateWeekChart() {
 
       // Find the most recent timestamp
       var mostRecentTimestamp = new Date(Math.max(...timestamps));
-      console.log(mostRecentTimestamp);
 
       function speedConversion(speeds) {
         for (let i = 0; i < speeds.length; i++) {
-          speeds[i] = speeds[i] / 1000000;
-          speeds[i] = speeds[i].toFixed(2);
+          speeds[i] = (speeds[i] / 1000000).toFixed(2);
         }
       }
 
@@ -173,7 +173,7 @@ function updateWeekChart() {
           if (count > 0) {
             dailyDownload.push((sumDownload / count).toFixed(2));
             dailyUpload.push((sumUpload / count).toFixed(2));
-            days.push(currentDate.toLocaleDateString('en', { weekday: 'short' })); // Get 3-letter abbreviation of the day
+            days.push(currentDate.toLocaleDateString('en', { weekday: 'short', month: 'short', day: '2-digit' })); // Get 3-letter abbreviation of the day
           } else {
             // If no data available for the day, push NaN
             dailyDownload.push(NaN);
@@ -232,7 +232,7 @@ function updateWeekChart() {
             categories: labels,
             labels: {
               style: {
-                colors: "#FFFFFF"
+                colors: "#000000"
               }
             }
           }
