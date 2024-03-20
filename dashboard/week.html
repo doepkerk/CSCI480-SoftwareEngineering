@@ -77,6 +77,35 @@
                 </div>
 
                 <p>WEEK</p>
+                <div class="charts">
+                    <div class="charts-card">
+                        <h2 class="chart-title">
+                            <div id="current_date">
+                                <script>
+                                    date = new Date();
+                                    year = date.getFullYear();
+                                    month = date.getMonth() + 1;
+                                    day = date.getDate();
+                                    document.getElementById("current_date").innerHTML = month + "/" + day + "/" + year;
+                                </script>
+                            </div>
+                        </h2>
+                        <div id="line-chart">
+                            <div id="download-chart"></div>
+                            <div id="upload-chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fetch-button">
+                    <button onclick="updateWeekChart()">Fetch Latest Data</button>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        updateWeekChart();
+                    });
+                </script>
             </main>
             <!-- End Main -->
     
