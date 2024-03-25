@@ -249,3 +249,125 @@ function updateWeekChart() {
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
+
+function updateMonthChart() {
+  fetch('speeds.json')
+    .then(response => response.json())
+    .then(data => {
+      // Filter data for the current month
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth() + 1;
+
+      const currentMonthData = data.filter(entry => {
+        const entryDate = new Date(entry.timestamp);
+        return entryDate.getFullYear() === currentYear && entryDate.getMonth() + 1 === currentMonth;
+      });
+
+      // Extract relevant information
+      const timestamps = currentMonthData.map(entry => new Date(entry.timestamp));
+      const downloadSpeeds = currentMonthData.map(entry => entry.download);
+      const uploadSpeeds = currentMonthData.map(entry => entry.upload);
+
+      function speedConversion(speeds) {
+        for (let i = 0; i < speeds.length; i++) {
+          speeds[i] = (speeds[i] / 1000000).toFixed(2);
+        }
+      }
+
+      // Function to calculate daily averages for the month
+      function getMonthAverages(data, timestamps) {
+        let dailyDownload = [];
+        let dailyUpload = [];
+        let days = [];
+
+        for (let i = 1; i <= new Date(currentYear, currentMonth, 0).getDate(); i++) {
+          let sumDownload = 0;
+          let sumUpload = 0;
+          let count = 0;
+
+          for (let j = 0; j < timestamps.length; j++) {
+            if (timestamps[j].getDate() === i) {
+              sumDownload += parseFloat(downloadSpeeds[j]);
+              sumUpload += parseFloat(uploadSpeeds[j]);
+              count++;
+            }
+          }
+
+          if (count > 0) {
+            dailyDownload.push((sumDownload / count).toFixed(2));
+            dailyUpload.push((sumUpload / count).toFixed(2));
+            days.push(timestamps[i].toLocaleDateString('en', {month: 'short'}) + " " + i);
+          } else {
+            // If no data available for the day, push NaN
+            dailyDownload.push(NaN);
+            dailyUpload.push(NaN);
+            days.push(timestamps[i].toLocaleDateString('en', {month: 'short'}) + " " + i);
+          }
+        }
+
+        speedConversion(dailyDownload);
+        speedConversion(dailyUpload);
+        
+        return {
+          dailyDownload: dailyDownload,
+          dailyUpload: dailyUpload,
+          days: days
+        };
+      }
+
+      let { dailyDownload, dailyUpload, days } = getMonthAverages(currentMonthData, timestamps);
+
+      // CHARTS
+
+      // Line chart setup
+      function setupChart(lineData, labels, chartTitle) {
+        var lineChartOptions = {
+          series: [{
+            name: "MBps",
+            data: lineData
+          }],
+          chart: {
+            height: 350,
+            type: 'line',
+            zoom: {
+              enabled: false
+            }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: 'smooth',
+          },
+          title: {
+            text: chartTitle,
+            align: 'left'
+          },
+          grid: {
+            row: {
+              colors: ['#212121', 'transparent'],
+              opacity: 0.5
+            },
+          },
+          xaxis: {
+            categories: labels,
+            labels: {
+              style: {
+                colors: "#000000"
+              }
+            }
+          }
+        };
+
+        return lineChartOptions;
+      }
+
+      // Create charts
+      var downloadChart = new ApexCharts(document.querySelector("#download-chart"), setupChart(dailyDownload, days, "Average Download Speeds (Mbps)"));
+      var uploadChart = new ApexCharts(document.querySelector("#upload-chart"), setupChart(dailyUpload, days, "Average Upload Speeds (Mbps)"));
+      downloadChart.render();
+      uploadChart.render();
+
+    }).catch(error => console.error('Error fetching JSON:', error));
+}
