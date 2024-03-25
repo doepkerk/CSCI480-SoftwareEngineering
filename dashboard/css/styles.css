@@ -12,6 +12,10 @@ body {
     font-size: 35px;
 }
 
+.material-icons-outlined:hover {
+    cursor: pointer;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: 260px 1fr 1fr 1fr;
