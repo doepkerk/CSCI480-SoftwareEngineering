@@ -73,10 +73,39 @@
             <!-- Main -->
             <main class="main-container">
                 <div class="main-title"> 
-                   <h2>PAST MONTH - Last Updated 3/5/2024</h2> 
+                   <h2>PAST MONTH - Last Updated 3/25/2024</h2> 
                 </div>
 
                 <p>MONTH</p>
+
+                <div class="charts">
+                    <div class="charts-card">
+                        <h2 class="chart-title">
+                            <div id="current_date">
+                                <script>
+                                    date = new Date();
+                                    month = date.toLocaleString('en', {month: 'long'});
+                                    year = date.getFullYear();
+                                    document.getElementById("current_date").innerHTML = month + " " + year;
+                                </script>
+                            </div>
+                        </h2>
+                        <div id="line-chart">
+                            <div id="download-chart"></div>
+                            <div id="upload-chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fetch-button">
+                    <button onclick="updateMonthChart()">Fetch Latest Data</button>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        updateMonthChart();
+                    });
+                </script>
             </main>
             <!-- End Main -->
     
