@@ -91,10 +91,7 @@ function updateChart() {
       console.log(down);
       console.log(up);
 
-
-
       // CHARTS
-
       // line chart
 
       function setupChart(lineData, labels, chartTitle) {
@@ -173,10 +170,6 @@ function updateWeekChart() {
       });
 
       const timestamps = time.map(timestamp => new Date(timestamp));
-
-      timestamps.reverse();
-      down.reverse();
-      up.reverse();
 
       // Find the most recent timestamp
       var mostRecentTimestamp = new Date(Math.max(...timestamps));
@@ -294,22 +287,51 @@ function updateWeekChart() {
 
 function updateMonthChart() {
   fetch('speeds.json')
-    .then(response => response.json())
-    .then(data => {
+    .then(response => response.text())
+    .then(text => {
+
+      const lines = text.split('\n');
+
+      let time = [];
+      let down = [];
+      let up = [];
+
+      lines.forEach(line => {
+        try {
+          const jsonObject = JSON.parse(line);
+
+          time.push(jsonObject.timestamp);
+          down.push(jsonObject.download);
+          up.push(jsonObject.upload);
+
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
+        }
+      });
+
+      const timestamps = time.map(timestamp => new Date(timestamp));
+
       // Filter data for the current month
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
       const currentMonth = currentDate.getMonth() + 1;
 
-      const currentMonthData = data.filter(entry => {
-        const entryDate = new Date(entry.timestamp);
-        return entryDate.getFullYear() === currentYear && entryDate.getMonth() + 1 === currentMonth;
-      });
+      const currentMonthData = lines
+        .map(line => {
+          try {
+            return JSON.parse(line);
+          } catch (error) {
+            console.error('Error parsing JSON:', error);
+            return null;
+          }
+        })
+        .filter(entry => {
+          if (!entry) return false;
+          const entryDate = new Date(entry.timestamp);
+          return entryDate.getFullYear() === currentYear && entryDate.getMonth() + 1 === currentMonth;
+        });
 
       // Extract relevant information
-      const timestamps = currentMonthData.map(entry => new Date(entry.timestamp));
-      const downloadSpeeds = currentMonthData.map(entry => entry.download);
-      const uploadSpeeds = currentMonthData.map(entry => entry.upload);
 
       function speedConversion(speeds) {
         for (let i = 0; i < speeds.length; i++) {
@@ -318,7 +340,7 @@ function updateMonthChart() {
       }
 
       // Function to calculate daily averages for the month
-      function getMonthAverages(data, timestamps) {
+      function getMonthAverages(text, timestamps) {
         let dailyDownload = [];
         let dailyUpload = [];
         let days = [];
@@ -330,8 +352,8 @@ function updateMonthChart() {
 
           for (let j = 0; j < timestamps.length; j++) {
             if (timestamps[j].getDate() === i) {
-              sumDownload += parseFloat(downloadSpeeds[j]);
-              sumUpload += parseFloat(uploadSpeeds[j]);
+              sumDownload += parseFloat(down[j]);
+              sumUpload += parseFloat(up[j]);
               count++;
             }
           }
