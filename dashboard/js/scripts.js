@@ -28,15 +28,34 @@ document.querySelector('#browserPrint').addEventListener('click', downloadPDFWit
 // Data for Previous 24 Hours for Chart.js
 function updateChart() {
   fetch('speeds.json')
-    .then(response => response.json())
-    .then(data => {
-      // Extract relevant information
-      var timestamps = data.map(entry => {
-        let entryDate = new Date(entry.timestamp);
-        return entryDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    .then(response => response.text())
+    .then(text => {
+
+      const lines = text.split('\n');
+
+      let time = [];
+      let down = [];
+      let up = [];
+
+      lines.forEach(line => {
+        try {
+          const jsonObject = JSON.parse(line);
+
+          time.push(jsonObject.timestamp);
+          down.push(jsonObject.download);
+          up.push(jsonObject.upload);
+
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
+        }
       });
-      var downloadSpeeds = data.map(entry => entry.download);
-      var uploadSpeeds = data.map(entry => entry.upload);
+
+      const formattedTimes = time.map(timestamp => {
+        const date = new Date(timestamp);
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
+
+      console.log(formattedTimes);
 
       //converts speeds from bits to Mb to 2 decimals
       function speedConversion(speeds) {
@@ -65,12 +84,12 @@ function updateChart() {
         console.log(hourly);
       }
 
-      speedConversion(downloadSpeeds);
-      speedConversion(uploadSpeeds);
-      getHourly(uploadSpeeds, downloadSpeeds, timestamps);
-      console.log(timestamps);
-      console.log(downloadSpeeds);
-      console.log(uploadSpeeds);
+      speedConversion(down);
+      speedConversion(up);
+      getHourly(up, down, formattedTimes);
+      console.log(formattedTimes);
+      console.log(down);
+      console.log(up);
 
 
 
@@ -131,15 +150,33 @@ function updateChart() {
 // Update charts for week.html
 function updateWeekChart() {
   fetch('speeds.json')
-    .then(response => response.json())
-    .then(data => {
-      // Reorder the data so that the most recent data is at the bottom
-      data.reverse();
+    .then(response => response.text())
+    .then(text => {
 
-      // Extract relevant information
-      var timestamps = data.map(entry => new Date(entry.timestamp));
-      var downloadSpeeds = data.map(entry => entry.download);
-      var uploadSpeeds = data.map(entry => entry.upload);
+      const lines = text.split('\n');
+
+      let time = [];
+      let down = [];
+      let up = [];
+
+      lines.forEach(line => {
+        try {
+          const jsonObject = JSON.parse(line);
+
+          time.push(jsonObject.timestamp);
+          down.push(jsonObject.download);
+          up.push(jsonObject.upload);
+
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
+        }
+      });
+
+      const timestamps = time.map(timestamp => new Date(timestamp));
+
+      timestamps.reverse();
+      down.reverse();
+      up.reverse();
 
       // Find the most recent timestamp
       var mostRecentTimestamp = new Date(Math.max(...timestamps));
@@ -150,8 +187,11 @@ function updateWeekChart() {
         }
       }
 
+      speedConversion(down);
+      speedConversion(up);
+
       // Function to calculate daily averages for the past 7 days
-      function getPastWeekAverages(data, timestamps, mostRecentTimestamp) {
+      function getPastWeekAverages(text, timestamps, mostRecentTimestamp) {
         let dailyDownload = [];
         let dailyUpload = [];
         let days = [];
@@ -163,9 +203,14 @@ function updateWeekChart() {
           let count = 0;
 
           for (let j = 0; j < timestamps.length; j++) {
-            if (timestamps[j].getDate() === currentDate.getDate()) {
-              sumDownload += parseFloat(downloadSpeeds[j]);
-              sumUpload += parseFloat(uploadSpeeds[j]);
+            const timestampDate = new Date(timestamps[j]);
+            if (
+              timestampDate.getDate() === currentDate.getDate() &&
+              timestampDate.getMonth() === currentDate.getMonth() &&
+              timestampDate.getFullYear() === currentDate.getFullYear()
+            ) {
+              sumDownload += parseFloat(down[j]);
+              sumUpload += parseFloat(up[j]);
               count++;
             }
           }
@@ -184,9 +229,6 @@ function updateWeekChart() {
           currentDate.setDate(currentDate.getDate() - 1); // Move to previous day
         }
 
-        speedConversion(dailyDownload);
-        speedConversion(dailyUpload);
-        
         return {
           dailyDownload: dailyDownload.reverse(), // Reverse to maintain chronological order
           dailyUpload: dailyUpload.reverse(),
@@ -194,7 +236,7 @@ function updateWeekChart() {
         };
       }
 
-      let { dailyDownload, dailyUpload, days } = getPastWeekAverages(data, timestamps, mostRecentTimestamp);
+      let { dailyDownload, dailyUpload, days } = getPastWeekAverages(text, time, mostRecentTimestamp);
 
       // CHARTS
 
@@ -297,18 +339,18 @@ function updateMonthChart() {
           if (count > 0) {
             dailyDownload.push((sumDownload / count).toFixed(2));
             dailyUpload.push((sumUpload / count).toFixed(2));
-            days.push(timestamps[i].toLocaleDateString('en', {month: 'short'}) + " " + i);
+            days.push(timestamps[i].toLocaleDateString('en', { month: 'short' }) + " " + i);
           } else {
             // If no data available for the day, push NaN
             dailyDownload.push(NaN);
             dailyUpload.push(NaN);
-            days.push(timestamps[i].toLocaleDateString('en', {month: 'short'}) + " " + i);
+            days.push(timestamps[i].toLocaleDateString('en', { month: 'short' }) + " " + i);
           }
         }
 
         speedConversion(dailyDownload);
         speedConversion(dailyUpload);
-        
+
         return {
           dailyDownload: dailyDownload,
           dailyUpload: dailyUpload,
