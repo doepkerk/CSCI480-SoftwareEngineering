@@ -9,7 +9,7 @@ and to permit persons to whom the Software is furnished to do so, subject to the
 
 1. The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-2. The source code shall not be used for commercial purposes, including but not limited to sale of the Software, or use it products 
+2. The source code shall not be used for commercial purposes, including but not limited to sale of the Software, or use in products 
 intended for sale, unless express writen permission is given by the source creator.
 
 3. Attribution to source work shall be made plainly available in a reasonable manner.
