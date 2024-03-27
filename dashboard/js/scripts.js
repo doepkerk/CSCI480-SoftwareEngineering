@@ -25,7 +25,57 @@ function downloadPDFWithBrowserPrint() {
 }
 document.querySelector('#browserPrint').addEventListener('click', downloadPDFWithBrowserPrint);
 
-// Data for Previous 24 Hours for Chart.js
+// Converts speeds to Mbps from bps
+function speedConversion(speeds) {
+  for (let i = 0; i < speeds.length; i++) {
+    speeds[i] = (speeds[i] / 1000000).toFixed(2);
+  }
+}
+
+// Sets the format of charts
+function setupChart(lineData, labels, chartTitle) {
+  var lineChartOptions = {
+    series: [{
+      name: "MBps",
+      data: lineData
+    }],
+    chart: {
+      height: 350,
+      type: 'line',
+      zoom: {
+        enabled: false
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth',
+    },
+    title: {
+      text: chartTitle,
+      align: 'left'
+    },
+    grid: {
+      row: {
+        colors: ['#212121', 'transparent'], // takes an array which will be repeated on columns
+        opacity: 0.5
+      },
+    },
+    xaxis: {
+      categories: labels,
+      labels: {
+        style: {
+          colors: "#000000"
+        }
+      }
+    }
+  };
+
+  return lineChartOptions;
+}
+
+// Updates charts for speeds of past 24 hours
 function updateChart() {
   fetch('speeds.json')
     .then(response => response.text())
@@ -57,13 +107,6 @@ function updateChart() {
 
       console.log(formattedTimes);
 
-      //converts speeds from bits to Mb to 2 decimals
-      function speedConversion(speeds) {
-        for (let i = 0; i < speeds.length; i++) {
-          speeds[i] = (speeds[i] / 1000000).toFixed(2);
-        }
-      }
-
       let hourlyDownload = [];
       let hourlyUpload = [];
       let hourly = [];
@@ -91,51 +134,6 @@ function updateChart() {
       console.log(down);
       console.log(up);
 
-      // CHARTS
-      // line chart
-
-      function setupChart(lineData, labels, chartTitle) {
-        var lineChartOptions = {
-          series: [{
-            name: "MBps",
-            data: lineData
-          }],
-          chart: {
-            height: 350,
-            type: 'line',
-            zoom: {
-              enabled: false
-            }
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            curve: 'smooth',
-          },
-          title: {
-            text: chartTitle,
-            align: 'left'
-          },
-          grid: {
-            row: {
-              colors: ['#212121', 'transparent'], // takes an array which will be repeated on columns
-              opacity: 0.5
-            },
-          },
-          xaxis: {
-            categories: labels,
-            labels: {
-              style: {
-                colors: "#000000"
-              }
-            }
-          }
-        };
-
-        return lineChartOptions;
-      }
-
       var downloadChart = new ApexCharts(document.querySelector("#download-chart"), setupChart(hourlyDownload, hourly, "Download Speeds"));
       var uploadChart = new ApexCharts(document.querySelector("#upload-chart"), setupChart(hourlyUpload, hourly, "Upload Speeds"));
       downloadChart.render();
@@ -144,7 +142,7 @@ function updateChart() {
     }).catch(error => console.error('Error fetching JSON:', error));
 }
 
-// Update charts for week.html
+// Update charts for speeds of past 7 days
 function updateWeekChart() {
   fetch('speeds.json')
     .then(response => response.text())
@@ -173,12 +171,6 @@ function updateWeekChart() {
 
       // Find the most recent timestamp
       var mostRecentTimestamp = new Date(Math.max(...timestamps));
-
-      function speedConversion(speeds) {
-        for (let i = 0; i < speeds.length; i++) {
-          speeds[i] = (speeds[i] / 1000000).toFixed(2);
-        }
-      }
 
       speedConversion(down);
       speedConversion(up);
@@ -231,51 +223,6 @@ function updateWeekChart() {
 
       let { dailyDownload, dailyUpload, days } = getPastWeekAverages(text, time, mostRecentTimestamp);
 
-      // CHARTS
-
-      // Line chart setup
-      function setupChart(lineData, labels, chartTitle) {
-        var lineChartOptions = {
-          series: [{
-            name: "MBps",
-            data: lineData
-          }],
-          chart: {
-            height: 350,
-            type: 'line',
-            zoom: {
-              enabled: false
-            }
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            curve: 'smooth',
-          },
-          title: {
-            text: chartTitle,
-            align: 'left'
-          },
-          grid: {
-            row: {
-              colors: ['#212121', 'transparent'],
-              opacity: 0.5
-            },
-          },
-          xaxis: {
-            categories: labels,
-            labels: {
-              style: {
-                colors: "#000000"
-              }
-            }
-          }
-        };
-
-        return lineChartOptions;
-      }
-
       // Create charts
       var downloadChart = new ApexCharts(document.querySelector("#download-chart"), setupChart(dailyDownload, days, "Average Download Speeds (Mbps)"));
       var uploadChart = new ApexCharts(document.querySelector("#upload-chart"), setupChart(dailyUpload, days, "Average Upload Speeds (Mbps)"));
@@ -285,6 +232,7 @@ function updateWeekChart() {
     }).catch(error => console.error('Error fetching JSON:', error));
 }
 
+// Updates charts for speeds of current month
 function updateMonthChart() {
   fetch('speeds.json')
     .then(response => response.text())
@@ -333,12 +281,6 @@ function updateMonthChart() {
 
       // Extract relevant information
 
-      function speedConversion(speeds) {
-        for (let i = 0; i < speeds.length; i++) {
-          speeds[i] = (speeds[i] / 1000000).toFixed(2);
-        }
-      }
-
       // Function to calculate daily averages for the month
       function getMonthAverages(text, timestamps) {
         let dailyDownload = [];
@@ -381,51 +323,6 @@ function updateMonthChart() {
       }
 
       let { dailyDownload, dailyUpload, days } = getMonthAverages(currentMonthData, timestamps);
-
-      // CHARTS
-
-      // Line chart setup
-      function setupChart(lineData, labels, chartTitle) {
-        var lineChartOptions = {
-          series: [{
-            name: "MBps",
-            data: lineData
-          }],
-          chart: {
-            height: 350,
-            type: 'line',
-            zoom: {
-              enabled: false
-            }
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            curve: 'smooth',
-          },
-          title: {
-            text: chartTitle,
-            align: 'left'
-          },
-          grid: {
-            row: {
-              colors: ['#212121', 'transparent'],
-              opacity: 0.5
-            },
-          },
-          xaxis: {
-            categories: labels,
-            labels: {
-              style: {
-                colors: "#000000"
-              }
-            }
-          }
-        };
-
-        return lineChartOptions;
-      }
 
       // Create charts
       var downloadChart = new ApexCharts(document.querySelector("#download-chart"), setupChart(dailyDownload, days, "Average Download Speeds (Mbps)"));
