@@ -43,6 +43,11 @@ a {
     cursor: pointer;
 }
 
+.header-left:hover {
+    background-color: #212121;
+    cursor: default;
+}
+
 .menu-icon {
     display: none;
 }
