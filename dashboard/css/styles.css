@@ -62,6 +62,13 @@ a {
     -webkit-transition: all 0.5s;
 }
 
+.menu-icon:hover {
+    cursor: pointer;
+}
+
+.material-icons-outlined:hover {
+    cursor: pointer;
+}
 .sidebar-title {
     display: flex;
     justify-content: space-between;
@@ -100,9 +107,11 @@ a {
 	color: white;
 }
 
+/* ---
 .sidebar-list-item a:hover {
 	color: #fdb94e;
 }
+-- */
 
 .sidebar-responsive {
     display: inline !important;
@@ -205,6 +214,10 @@ button:hover {
     cursor: pointer;
 }
 
+a:visited, .sidebar-list-item:hover {
+    background-color: #fdb94e;
+}
+
 .pdf-button, .fetch-button {
     display: flex;
     justify-content: center;
@@ -213,14 +226,15 @@ button:hover {
 
 /* ----- Table ----- */
 table, td {
-    border: 1px solid black;
+    border: 3px solid #212121;
     border-collapse: collapse;
     text-align: center;
     background-color: white;
+    box-shadow: 0 6px 7px -3px rgb(21,21,21);
 }
 
 th, td {
-    color: black;
+    color: #212121;
 }
 
 /* ----- Media Queries ----- */

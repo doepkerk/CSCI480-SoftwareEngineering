@@ -32,11 +32,10 @@ function speedConversion(speeds) {
   }
 }
 
-// Sets the format of charts
 function setupChart(lineData, labels, chartTitle) {
   var lineChartOptions = {
     series: [{
-      name: "MBps",
+      name: "Mbps",
       data: lineData
     }],
     chart: {
@@ -59,7 +58,7 @@ function setupChart(lineData, labels, chartTitle) {
     grid: {
       row: {
         colors: ['#212121', 'transparent'], // takes an array which will be repeated on columns
-        opacity: 0.5
+        opacity: 0.1
       },
     },
     xaxis: {
@@ -332,3 +331,66 @@ function updateMonthChart() {
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
+
+function updateReportPast24() {
+  fetch('speeds.json')
+    .then(response => response.text())
+    .then(text => {
+
+      const lines = text.split('\n');
+
+      let time = [];
+      let down = [];
+      let up = [];
+
+      lines.forEach(line => {
+        try {
+          const jsonObject = JSON.parse(line);
+
+          time.push(jsonObject.timestamp);
+          down.push(jsonObject.download);
+          up.push(jsonObject.upload);
+
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
+        }
+      });
+
+      const formattedTimes = time.map(timestamp => {
+        const date = new Date(timestamp);
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
+
+      console.log(formattedTimes);
+
+      let hourlyDownload = [];
+      let hourlyUpload = [];
+
+      
+      // stores 24 hours worth of data into 3 arrays
+      function getSumHourly(upload, download, hour) {
+        for (let i = hour.length - 1; i > (hour.length - 25); i--) {
+          hourlyUpload.push(upload[i]);
+          hourlyDownload.push(download[i]);
+          
+        };
+
+        //sum all hourly upload and hourlydownload
+        for (let i = hour.length - 1; i > (hour.length - 25); i--) {
+          
+          let sumUpload = 0;
+          let sumDownload = 0;
+          
+          sumUpload += (hourlyUpload[i])
+          sumDownload += (hourlyDownload[i])
+        };
+      }
+      
+      avgUpload = sumUpload / 24;
+
+      document.write(avgUpload);
+
+    }).catch(error => console.error('Error fetching JSON:', error));
+}
+
+
