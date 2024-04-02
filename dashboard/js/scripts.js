@@ -336,7 +336,6 @@ function updateReportPast24() {
   fetch('speeds.json')
     .then(response => response.text())
     .then(text => {
-
       const lines = text.split('\n');
 
       let time = [];
@@ -346,11 +345,10 @@ function updateReportPast24() {
       lines.forEach(line => {
         try {
           const jsonObject = JSON.parse(line);
-
+          // Assuming each line is a JSON object with properties 'timestamp', 'download', and 'upload'
           time.push(jsonObject.timestamp);
           down.push(jsonObject.download);
           up.push(jsonObject.upload);
-
         } catch (error) {
           console.error('Error parsing JSON:', error);
         }
@@ -361,36 +359,44 @@ function updateReportPast24() {
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       });
 
-      console.log(formattedTimes);
+      speedConversion(down);
+      speedConversion(up);
 
       let hourlyDownload = [];
       let hourlyUpload = [];
 
+      let sumUpload = 0;
+      let sumDownload = 0;
       
       // stores 24 hours worth of data into 3 arrays
       function getSumHourly(upload, download, hour) {
         for (let i = hour.length - 1; i > (hour.length - 25); i--) {
-          hourlyUpload.push(upload[i]);
-          hourlyDownload.push(download[i]);
-          
+          hourlyUpload.push(parseFloat(upload[i]));
+          hourlyDownload.push(parseFloat(download[i]));
         };
 
         //sum all hourly upload and hourlydownload
-        for (let i = hour.length - 1; i > (hour.length - 25); i--) {
-          
-          let sumUpload = 0;
-          let sumDownload = 0;
-          
+        for (let i = 0; i < hourlyUpload.length; i++) {
           sumUpload += (hourlyUpload[i])
           sumDownload += (hourlyDownload[i])
         };
-      }
-      
-      avgUpload = sumUpload / 24;
 
-      document.write(avgUpload);
+        console.log(sumUpload);
+        console.log(sumDownload);
+      }
+
+      getSumHourly(up, down, formattedTimes);
+      
+      const avgUpload = (sumUpload / 24).toFixed(2);
+      const avgDownload = (sumDownload / 24).toFixed(2);
+      console.log(avgUpload);
+      console.log(avgDownload);
+
+      const upTD = document.getElementById("dayUploadAverages");
+      upTD.textContent = avgUpload + " Mbps";
+
+      const downTD = document.getElementById("dayDownloadAverages");
+      downTD.textContent = avgDownload + " Mbps";
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
-
-
