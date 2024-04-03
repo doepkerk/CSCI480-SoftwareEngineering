@@ -106,8 +106,8 @@
                     </tr>
                     <tr style="height:50px">
                         <td>Past Week</td>
-                        <td>mbps</td>
-                        <td>mbps</td>
+                        <td id="weekUploadAverages"></td>
+                        <td id="weekDownloadAverages"></td>
                     </tr>
                     <tr style="height:50px">
                         <td>Past Month</td>
@@ -124,6 +124,10 @@
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         updateReportPast24();
+                    });
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                        updateReportPastWeek();
                     });
                 </script>
             </div>

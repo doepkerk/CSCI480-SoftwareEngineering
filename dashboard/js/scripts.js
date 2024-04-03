@@ -368,7 +368,7 @@ function updateReportPast24() {
       let sumUpload = 0;
       let sumDownload = 0;
       
-      // stores 24 hours worth of data into 3 arrays
+      // stores 24 hours worth of data into 2 arrays
       function getSumHourly(upload, download, hour) {
         for (let i = hour.length - 1; i > (hour.length - 25); i--) {
           hourlyUpload.push(parseFloat(upload[i]));
@@ -397,6 +397,113 @@ function updateReportPast24() {
 
       const downTD = document.getElementById("dayDownloadAverages");
       downTD.textContent = avgDownload + " Mbps";
+
+    }).catch(error => console.error('Error fetching JSON:', error));
+}
+
+function updateReportPastWeek() {
+  fetch('speeds.json')
+    .then(response => response.text())
+    .then(text => {
+
+      const lines = text.split('\n');
+
+      let time = [];
+      let down = [];
+      let up = [];
+
+      lines.forEach(line => {
+        try {
+          const jsonObject = JSON.parse(line);
+
+          time.push(jsonObject.timestamp);
+          down.push(jsonObject.download);
+          up.push(jsonObject.upload);
+
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
+        }
+      });
+
+      const timestamps = time.map(timestamp => new Date(timestamp));
+
+      // Find the most recent timestamp
+      var mostRecentTimestamp = new Date(Math.max(...timestamps));
+
+      speedConversion(down);
+      speedConversion(up);
+
+      // Function to calculate daily averages for the past 7 days
+      function getPastWeekAverages(text, timestamps, mostRecentTimestamp) {
+        let dailyDownload = [];
+        let dailyUpload = [];
+        let days = [];
+        let currentDate = new Date(mostRecentTimestamp); // Start from the most recent timestamp
+
+        for (let i = 0; i < 7; i++) {
+          let sumDownload = 0;
+          let sumUpload = 0;
+          let count = 0;
+
+          for (let j = 0; j < timestamps.length; j++) {
+            const timestampDate = new Date(timestamps[j]);
+            if (
+              timestampDate.getDate() === currentDate.getDate() &&
+              timestampDate.getMonth() === currentDate.getMonth() &&
+              timestampDate.getFullYear() === currentDate.getFullYear()
+            ) {
+              sumDownload += parseFloat(down[j]);
+              sumUpload += parseFloat(up[j]);
+              count++;
+            }
+          }
+
+          if (count > 0) {
+            dailyDownload.push((sumDownload / count).toFixed(2));
+            dailyUpload.push((sumUpload / count).toFixed(2));
+            days.push(currentDate.toLocaleDateString('en', { weekday: 'short', month: 'short', day: '2-digit' })); // Get 3-letter abbreviation of the day
+          } else {
+            // If no data available for the day, push NaN
+            dailyDownload.push(NaN);
+            dailyUpload.push(NaN);
+            days.push(currentDate.toLocaleDateString('en', { weekday: 'short' })); // Get 3-letter abbreviation of the day
+          }
+
+          currentDate.setDate(currentDate.getDate() - 1); // Move to previous day
+        }
+      }
+
+      // stores 24 hours worth of data into 2 arrays
+      function getSumWeekly(upload, download, hour) {
+        for (let i = hour.length - 1; i > (hour.length - 25); i--) {
+          dailyUpload.push(parseFloat(upload[i]));
+          dailyDownload.push(parseFloat(download[i]));
+        };
+
+        //sum all hourly upload and hourlydownload
+        for (let i = 0; i < dailyUpload.length; i++) {
+          sumUpload += (dailyUpload[i])
+          sumDownload += (dailyDownload[i])
+        };
+
+        console.log(sumUpload);
+        console.log(sumDownload);
+      }
+
+      getSumWeekly(up, down, formattedTimes);
+      
+      const avgUpload = (sumUpload / 7).toFixed(2);
+      const avgDownload = (sumDownload / 7).toFixed(2);
+      console.log(avgUpload);
+      console.log(avgDownload);
+
+      const upTD = document.getElementById("weekUploadAverages");
+      upTD.textContent = avgUpload + " Mbps";
+
+      const downTD = document.getElementById("weekDownloadAverages");
+      downTD.textContent = avgDownload + " Mbps";
+
+      let { dailyDownload, dailyUpload, days } = getPastWeekAverages(text, time, mostRecentTimestamp);
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
