@@ -26,6 +26,7 @@
                 <div class="header-left">
                     <span class="material-icons-outlined">wifi</span>
                 </div>
+                <h2>Internet Speed Monitor</h2>
                 <div class="header-right">
                     <a href="report.html" title="View report">
                      <span class="material-icons-outlined">summarize</span>
@@ -53,17 +54,17 @@
                         </li>
                     <li class="sidebar-list-item" title="View information on the last 24 hours">
                         <a href="day.html">
-                            <span class="material-icons-outlined">view_day</span> Past 24 Hours
+                            <span class="material-icons-outlined">calendar_today</span> Past 24 Hours
                         </a>
                     </li>
                     <li class="sidebar-list-item" title="View information on the past week">
                         <a href="week.html">
-                            <span class="material-icons-outlined">calendar_view_week</span> Past Week 
+                            <span class="material-icons-outlined">date_range</span> Past Week 
                        </a>
                     </li>
                     <li class="sidebar-list-item" title="View information on the past month">
                         <a href="month.html">
-                            <span class="material-icons-outlined">calendar_view_month</span> Past Month
+                            <span class="material-icons-outlined">calendar_month</span> Past Month
                         </a>
                     </li>
                 </ul>
@@ -74,6 +75,21 @@
             <main class="main-container">
                 <div class="main-title"> 
                    <h2>PAST 24 HOURS</h2> 
+                </div>
+
+                <div class="tablereport">
+                    <table style="width:100%">
+                        <tr style="height:50px">
+                            <th>Time Period</th>
+                            <th>Average Upload Speeds</th>
+                            <th>Average Download Speeds</th>
+                        </tr>
+                        <tr style="height:50px">
+                            <td>Past 24 Hours</td>
+                            <td id="dayUploadAverages"></td>
+                            <td id="dayDownloadAverages"></td>
+                        </tr>
+                    </table>
                 </div>
 
                 <div class="charts">
@@ -97,12 +113,13 @@
                 </div>
 
                 <div class="fetch-button">
-                    <button onclick="updateChart()">Fetch Data</button>
+                    <button onclick="updateChart()">Fetch Latest Data</button>
                 </div>
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         updateChart();
+                        updateReportPast24();
                     });
                 </script>
             </main>

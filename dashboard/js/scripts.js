@@ -401,6 +401,7 @@ function updateReportPast24() {
     }).catch(error => console.error('Error fetching JSON:', error));
 }
 
+// Update Report for Past Week Averages
 function updateReportPastWeek() {
   fetch('speeds.json')
     .then(response => response.text())
@@ -472,25 +473,28 @@ function updateReportPastWeek() {
           currentDate.setDate(currentDate.getDate() - 1); // Move to previous day
         }
       }
-
+      
+      let sumUpload = 0;
+      let sumDownload = 0;
+      
       // stores 24 hours worth of data into 2 arrays
-      function getSumWeekly(upload, download, hour) {
+      function getSumHourly(upload, download, hour) {
         for (let i = hour.length - 1; i > (hour.length - 25); i--) {
-          dailyUpload.push(parseFloat(upload[i]));
-          dailyDownload.push(parseFloat(download[i]));
+          hourlyUpload.push(parseFloat(upload[i]));
+          hourlyDownload.push(parseFloat(download[i]));
         };
 
         //sum all hourly upload and hourlydownload
-        for (let i = 0; i < dailyUpload.length; i++) {
-          sumUpload += (dailyUpload[i])
-          sumDownload += (dailyDownload[i])
+        for (let i = 0; i < hourlyUpload.length; i++) {
+          sumUpload += (hourlyUpload[i])
+          sumDownload += (hourlyDownload[i])
         };
 
         console.log(sumUpload);
         console.log(sumDownload);
       }
 
-      getSumWeekly(up, down, formattedTimes);
+      getSumHourly(up, down, formattedTimes);
       
       const avgUpload = (sumUpload / 7).toFixed(2);
       const avgDownload = (sumDownload / 7).toFixed(2);

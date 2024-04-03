@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #212121;
-    color: #fdb94e;
+    color: #7CB9E8;
     font-family: "Roboto", sans-serif;
 }
 
@@ -43,15 +43,13 @@ a {
     cursor: pointer;
 }
 
-.header-left:hover {
-    background-color: #212121;
-    cursor: default;
-}
-
 .menu-icon {
     display: none;
 }
 
+h2 {
+    text-align: left;
+}
 /* ------ Sidebar ------ */
 #sidebar {
     grid-area: sidebar;
@@ -69,6 +67,7 @@ a {
 .material-icons-outlined:hover {
     cursor: pointer;
 }
+
 .sidebar-title {
     display: flex;
     justify-content: space-between;
@@ -107,11 +106,6 @@ a {
 	color: white;
 }
 
-/* ---
-.sidebar-list-item a:hover {
-	color: #fdb94e;
-}
--- */
 
 .sidebar-responsive {
     display: inline !important;
@@ -148,19 +142,19 @@ a {
 }
 
 .card:first-child {
-    background-color: #fdb94e;
+    background-color: #7CB9E8;
 }
 
 .card:nth-child(2) {
-    background-color: #f9a852;
+    background-color: #007FFF;
 }
 
 .card:nth-child(3) {
-    background-color: #f69653;
+    background-color: #00b4d8;
 }
 
 .card:nth-child(4) {
-    background-color: #f38654;
+    background-color: #0077b6;
 }
 
 .card-inner {
@@ -181,7 +175,7 @@ h1 {
 /* ----- CHARTS ----- */
 .charts {
     gap: 20px;
-    margin-top: 60px;
+    margin-top: 30px;
     color: black;
 }
 
@@ -202,6 +196,7 @@ h1 {
     color: black;
 }
 
+/* ----- Button ----- */
 button {
     text-align: center;
     width: 25%;
@@ -210,12 +205,12 @@ button {
 }
 
 button:hover {
-    background-color: #fdb94e;
+    background-color: #7CB9E8;
     cursor: pointer;
 }
 
 a:visited, .sidebar-list-item:hover {
-    background-color: #fdb94e;
+    background-color: #7CB9E8;
 }
 
 .pdf-button, .fetch-button {

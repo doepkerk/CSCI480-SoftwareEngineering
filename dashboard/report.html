@@ -30,6 +30,7 @@
             <div class="header-left">
                 <span class="material-icons-outlined">wifi</span>
             </div>
+            <h2>Internet Speed Monitor</h2>
             <div class="header-right">
                 <a href="report.html" title="View report">
                     <span class="material-icons-outlined">summarize</span>
@@ -57,17 +58,17 @@
                 </li>
                 <li class="sidebar-list-item" title="View information on the last 24 hours">
                     <a href="day.html">
-                        <span class="material-icons-outlined">view_day</span> Past 24 Hours
+                        <span class="material-icons-outlined">calendar_today</span> Past 24 Hours
                     </a>
                 </li>
                 <li class="sidebar-list-item" title="View information on the past week">
                     <a href="week.html">
-                        <span class="material-icons-outlined">calendar_view_week</span> Past Week
+                        <span class="material-icons-outlined">date_range</span> Past Week
                     </a>
                 </li>
                 <li class="sidebar-list-item" title="View information on the past month">
                     <a href="month.html">
-                        <span class="material-icons-outlined">calendar_view_month</span> Past Month
+                        <span class="material-icons-outlined">calendar_month</span> Past Month
                     </a>
                 </li>
             </ul>
@@ -114,27 +115,19 @@
                         <td>mbps</td>
                         <td>mbps</td>
                     </tr>
-                    <tr style="height:50px">
-                        <td>Overall</td>
-                        <td>mbps</td>
-                        <td>mbps</td>
-                    </tr>
                 </table>
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         updateReportPast24();
-                    });
-
-                    document.addEventListener('DOMContentLoaded', function () {
                         updateReportPastWeek();
                     });
                 </script>
             </div>
 
-            <p>Click button below to generate a PDF summary report.</p>
+            <p> </p>
 
-            <div class="pdf-button">
+            <div class="pdf-button" title="Click button to generate a PDF summary report.">
                 <button onclick="downloadPDFWithBrowserPrint()">Generate PDF File</button>
             </div>
 
