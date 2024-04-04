@@ -280,48 +280,59 @@ function updateMonthChart() {
           return entryDate.getFullYear() === currentYear && entryDate.getMonth() + 1 === currentMonth;
         });
 
+      if (currentMonthData.length === 0) {
+        console.log('No data available for the current month.');
+        return; // Exit function if no data for the current month
+      }
+
       // Extract relevant information
 
       // Function to calculate daily averages for the month
       function getMonthAverages(text, timestamps) {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth() + 1;
+      
         let dailyDownload = [];
         let dailyUpload = [];
         let days = [];
-
+      
         for (let i = 1; i <= new Date(currentYear, currentMonth, 0).getDate(); i++) {
           let sumDownload = 0;
           let sumUpload = 0;
           let count = 0;
-
+      
           for (let j = 0; j < timestamps.length; j++) {
-            if (timestamps[j].getDate() === i) {
+            const entryDate = new Date(timestamps[j]);
+            if (entryDate.getFullYear() === currentYear && entryDate.getMonth() + 1 === currentMonth && entryDate.getDate() === i) {
               sumDownload += parseFloat(down[j]);
               sumUpload += parseFloat(up[j]);
               count++;
             }
           }
-
+      
           if (count > 0) {
             dailyDownload.push((sumDownload / count).toFixed(2));
             dailyUpload.push((sumUpload / count).toFixed(2));
-            days.push(timestamps[i].toLocaleDateString('en', { month: 'short' }) + " " + i);
+            days.push(currentDate.toLocaleDateString('en', { month: 'short' }) + " " + i);
           } else {
             // If no data available for the day, push NaN
             dailyDownload.push(NaN);
             dailyUpload.push(NaN);
-            days.push(timestamps[i].toLocaleDateString('en', { month: 'short' }) + " " + i);
+            days.push(currentDate.toLocaleDateString('en', { month: 'short' }) + " " + i);
           }
         }
-
+      
         speedConversion(dailyDownload);
         speedConversion(dailyUpload);
-
+      
         return {
           dailyDownload: dailyDownload,
           dailyUpload: dailyUpload,
           days: days
         };
       }
+      
 
       let { dailyDownload, dailyUpload, days } = getMonthAverages(currentMonthData, timestamps);
 
@@ -333,6 +344,7 @@ function updateMonthChart() {
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
+
 
 function updateReportPast24() {
   fetch('speeds.json')
