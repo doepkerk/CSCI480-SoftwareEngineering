@@ -470,3 +470,87 @@ function updateReportPastWeek() {
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
+
+function updateReportMonth() {
+  fetch('speeds.json')
+    .then(response => response.text())
+    .then(text => {
+
+      const lines = text.split('\n');
+
+      let time = [];
+      let down = [];
+      let up = [];
+
+      lines.forEach(line => {
+        try {
+          const jsonObject = JSON.parse(line);
+
+          time.push(jsonObject.timestamp);
+          down.push(jsonObject.download);
+          up.push(jsonObject.upload);
+
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
+        }
+      });
+
+      const timestamps = time.map(timestamp => new Date(timestamp));
+
+      // Filter data for the current month
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth() + 1;
+
+      const currentMonthData = lines
+        .map(line => {
+          try {
+            return JSON.parse(line);
+          } catch (error) {
+            console.error('Error parsing JSON:', error);
+            return null;
+          }
+        })
+        .filter(entry => {
+          if (!entry) return false;
+          const entryDate = new Date(entry.timestamp);
+          return entryDate.getFullYear() === currentYear && entryDate.getMonth() + 1 === currentMonth;
+        });
+
+      // Extract relevant information
+
+      speedConversion(up);
+      speedConversion(down);
+
+      let sumDownAverage = 0;
+      let sumUpAverage = 0;
+      let count = 0;
+
+      // Function to calculate daily averages for the month
+      function getMonthAverages(text, timestamps) {
+
+        for (let i = 1; i <= new Date(currentYear, currentMonth, 0).getDate(); i++) {
+
+          for (let j = 0; j < timestamps.length; j++) {
+            if (timestamps[j].getDate() === i) {
+              sumDownAverage += parseFloat(down[j]);
+              sumUpAverage += parseFloat(up[j]);
+              count++;
+            }
+          }
+        }
+      }
+
+      getMonthAverages(currentMonthData, timestamps);
+
+      const avgUpload = (sumUpAverage / count).toFixed(2);
+      const avgDownload = (sumDownAverage / count).toFixed(2);
+
+      const upTD = document.getElementById("monthUploadAverages");
+      upTD.textContent = avgUpload + " Mbps";
+
+      const downTD = document.getElementById("monthDownloadAverages");
+      downTD.textContent = avgDownload + " Mbps";
+
+    }).catch(error => console.error('Error fetching JSON:', error));
+}
