@@ -86,8 +86,8 @@
                         </tr>
                         <tr style="height:50px">
                             <td>Past Month</td>
-                            <td>mbps</td>
-                            <td>mbps</td>
+                            <td id="monthUploadAverages"></td>
+                            <td id="monthDownloadAverages"></td>
                         </tr>
                     </table>
                 </div>
@@ -118,6 +118,7 @@
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         updateMonthChart();
+                        updateReportMonth();
                     });
                 </script>
             </main>
