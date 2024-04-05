@@ -292,16 +292,16 @@ function updateMonthChart() {
         const currentDate = new Date();
         const currentYear = currentDate.getFullYear();
         const currentMonth = currentDate.getMonth() + 1;
-      
+
         let dailyDownload = [];
         let dailyUpload = [];
         let days = [];
-      
+
         for (let i = 1; i <= new Date(currentYear, currentMonth, 0).getDate(); i++) {
           let sumDownload = 0;
           let sumUpload = 0;
           let count = 0;
-      
+
           for (let j = 0; j < timestamps.length; j++) {
             const entryDate = new Date(timestamps[j]);
             if (entryDate.getFullYear() === currentYear && entryDate.getMonth() + 1 === currentMonth && entryDate.getDate() === i) {
@@ -310,7 +310,7 @@ function updateMonthChart() {
               count++;
             }
           }
-      
+
           if (count > 0) {
             dailyDownload.push((sumDownload / count).toFixed(2));
             dailyUpload.push((sumUpload / count).toFixed(2));
@@ -322,17 +322,16 @@ function updateMonthChart() {
             days.push(currentDate.toLocaleDateString('en', { month: 'short' }) + " " + i);
           }
         }
-      
+
         speedConversion(dailyDownload);
         speedConversion(dailyUpload);
-      
+
         return {
           dailyDownload: dailyDownload,
           dailyUpload: dailyUpload,
           days: days
         };
       }
-      
 
       let { dailyDownload, dailyUpload, days } = getMonthAverages(currentMonthData, timestamps);
 
@@ -341,6 +340,40 @@ function updateMonthChart() {
       var uploadChart = new ApexCharts(document.querySelector("#upload-chart"), setupChart(dailyUpload, days, "Average Upload Speeds (Mbps)"));
       downloadChart.render();
       uploadChart.render();
+
+      // Inserting data into the table
+      const tableBody = document.getElementById("tableData");
+
+      // Inserting data into the table body
+      for (let i = 0; i < dailyUpload.length; i++) {
+        if (!isNaN(dailyUpload[i]) && !isNaN(dailyDownload[i])) {
+          const newRow = document.createElement("tr");
+          const newTimeStamp = document.createElement("td");
+          const newUpload = document.createElement("td");
+          const newDownload = document.createElement("td");
+
+          newTimeStamp.textContent = days[i];
+          newUpload.textContent = parseFloat(dailyUpload[i]) + " Mbps";
+          newDownload.textContent = parseFloat(dailyDownload[i]) + " Mbps";
+
+          [newTimeStamp, newUpload, newDownload].forEach(cell => {
+            cell.style.border = "3px solid #212121";
+            cell.style.textAlign = "center";
+            cell.style.backgroundColor = "white";
+            cell.style.boxShadow = "0 6px 7px -3px rgb(21,21,21)";
+          });
+
+          newRow.appendChild(newTimeStamp);
+          newRow.appendChild(newUpload);
+          newRow.appendChild(newDownload);
+
+          tableBody.appendChild(newRow);
+        }
+      }
+
+      const table = document.querySelector("tableData");
+      table.style.border = "3px solid #212121";
+      table.style.borderCollapse = "collapse";
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
@@ -406,6 +439,38 @@ function updateReportPast24() {
 
       const downTD = document.getElementById("dayDownloadAverages");
       downTD.textContent = avgDownload + " Mbps";
+
+      // Inserting data into the table
+      const tableBody = document.getElementById("tableData");
+
+      // Inserting data into the table body
+      for (let i = 0; i < hourlyUpload.length; i++) {
+        const newRow = document.createElement("tr");
+        const newTimeStamp = document.createElement("td");
+        const newUpload = document.createElement("td");
+        const newDownload = document.createElement("td");
+
+        newTimeStamp.textContent = formattedTimes[i];
+        newUpload.textContent = hourlyUpload[i] + " Mbps";
+        newDownload.textContent = hourlyDownload[i] + " Mbps";
+
+        [newTimeStamp, newUpload, newDownload].forEach(cell => {
+          cell.style.border = "3px solid #212121";
+          cell.style.textAlign = "center";
+          cell.style.backgroundColor = "white";
+          cell.style.boxShadow = "0 6px 7px -3px rgb(21,21,21)";
+        });
+
+        newRow.appendChild(newTimeStamp);
+        newRow.appendChild(newUpload);
+        newRow.appendChild(newDownload);
+
+        tableBody.appendChild(newRow);
+      }
+
+      const table = document.querySelector("tableData");
+      table.style.border = "3px solid #212121";
+      table.style.borderCollapse = "collapse";
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
@@ -479,6 +544,38 @@ function updateReportPastWeek() {
       }
 
       getPastWeekAverages(timestamps, mostRecentTimestamp);
+
+      // Inserting data into the table
+      const tableBody = document.getElementById("tableData");
+
+      // Inserting data into the table body
+      for (let i = 0; i < up.length; i++) {
+        const newRow = document.createElement("tr");
+        const newTimeStamp = document.createElement("td");
+        const newUpload = document.createElement("td");
+        const newDownload = document.createElement("td");
+
+        newTimeStamp.textContent = timestamps[i].toLocaleDateString('en', { weekday: 'short', month: 'short', day: '2-digit', hour: 'numeric', minute: 'numeric' });
+        newUpload.textContent = parseFloat(up[i]) + " Mbps";
+        newDownload.textContent = parseFloat(down[i]) + " Mbps";
+
+        [newTimeStamp, newUpload, newDownload].forEach(cell => {
+          cell.style.border = "3px solid #212121";
+          cell.style.textAlign = "center";
+          cell.style.backgroundColor = "white";
+          cell.style.boxShadow = "0 6px 7px -3px rgb(21,21,21)";
+        });
+
+        newRow.appendChild(newTimeStamp);
+        newRow.appendChild(newUpload);
+        newRow.appendChild(newDownload);
+
+        tableBody.appendChild(newRow);
+      }
+
+      const table = document.querySelector("tableData");
+      table.style.border = "3px solid #212121";
+      table.style.borderCollapse = "collapse";
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
