@@ -62,7 +62,7 @@
                             <span class="material-icons-outlined">date_range</span> Past Week 
                        </a>
                     </li>
-                    <li class="sidebar-list-item" title="View information on the past month">
+                    <li class="sidebar-list-item" id="active" title="View information on the past month">
                         <a href="month.html">
                             <span class="material-icons-outlined">calendar_month</span> Past Month
                         </a>
@@ -85,7 +85,7 @@
                             <th>Average Download Speeds</th>
                         </tr>
                         <tr style="height:50px">
-                            <td>Past Month</td>
+                            <td>This Month</td>
                             <td id="monthUploadAverages"></td>
                             <td id="monthDownloadAverages"></td>
                         </tr>
@@ -105,14 +105,24 @@
                             </div>
                         </h2>
                         <div id="line-chart">
-                            <div id="upload-chart"></div>
                             <div id="download-chart"></div>
+                            <div id="upload-chart"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="fetch-button">
-                    <button onclick="updateMonthChart()">Fetch Latest Data</button>
+                    <button onclick="updateMonthChart(); udpateReportMonth();">Update Data</button>
+                </div>
+
+                <div class="tablereport">
+                    <table id="tableData" style="width:100%">
+                        <tr style="height:50px">
+                            <th>Date</th>
+                            <th>Upload Speeds</th>
+                            <th>Download Speeds</th>
+                        </tr>
+                    </table>
                 </div>
 
                 <script>
