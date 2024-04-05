@@ -102,6 +102,10 @@ h2 {
     cursor: pointer;
 }
 
+#active {
+    background-color: #7CB9E8;
+}
+
 .sidebar-list-item a {
 	color: white;
 }
@@ -201,7 +205,8 @@ button {
     text-align: center;
     width: 25%;
     height: 40px;
-    border-radius: 6px;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 button:hover {
@@ -220,28 +225,16 @@ a:visited, .sidebar-list-item:hover {
 }
 
 /* ----- Table ----- */
-table {
-    border-collapse: separate;
-    border: 1px solid #212121;
-    border-radius: 6px;
-    box-shadow: 0 6px 7px -3px rgb(21,21,21);
+table, td {
+    border: 3px solid #212121;
+    border-collapse: collapse;
     text-align: center;
     background-color: white;
-    border-spacing: 0px;
+    box-shadow: 0 6px 7px -3px rgb(21,21,21);
 }
 
 th, td {
-    border-left: 2px solid #212121;
-    border-top: 2px solid #212121;
     color: #212121;
-}
-
-th {
-    border-top: none;
-}
-
-td:first-child, th:first-child {
-    border-left: none;
 }
 
 /* ----- Media Queries ----- */
