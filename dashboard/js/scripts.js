@@ -104,8 +104,6 @@ function updateChart() {
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       });
 
-      console.log(formattedTimes);
-
       let hourlyDownload = [];
       let hourlyUpload = [];
       let hourly = [];
@@ -121,17 +119,11 @@ function updateChart() {
         hourlyUpload.reverse();
         hourlyDownload.reverse();
         hourly.reverse();
-
-        console.log(hourlyDownload);
-        console.log(hourly);
       }
 
       speedConversion(down);
       speedConversion(up);
       getHourly(up, down, formattedTimes);
-      console.log(formattedTimes);
-      console.log(down);
-      console.log(up);
 
       var downloadChart = new ApexCharts(document.querySelector("#download-chart"), setupChart(hourlyDownload, hourly, "Download Speeds"));
       var uploadChart = new ApexCharts(document.querySelector("#upload-chart"), setupChart(hourlyUpload, hourly, "Upload Speeds"));
@@ -188,8 +180,6 @@ function updateWeekChart() {
 
           for (let j = 0; j < timestamps.length; j++) {
             const timestampDate = new Date(timestamps[j]);
-            console.log(currentDate);
-            console.log(timestampDate);
             if (
               timestampDate.getDate() === currentDate.getDate() &&
               timestampDate.getMonth() === currentDate.getMonth() &&
