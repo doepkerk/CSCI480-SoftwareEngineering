@@ -47,7 +47,7 @@
                 </div>
 
                 <ul class="sidebar-list">
-                    <li class="sidebar-list-item">
+                    <li class="sidebar-list-item" id="active">
                         <a href="index.html" title="View dashboard">
                             <span class="material-icons-outlined">dashboard</span> Dashboard
                         </a>
@@ -139,14 +139,14 @@
                             </div>
                         </h2>
                         <div id="line-chart">
-                            <div id="upload-chart"></div>
                             <div id="download-chart"></div>
+                            <div id="upload-chart"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="fetch-button">
-                    <button onclick="updateChart()">Fetch Latest Data</button>
+                    <button onclick="updateChart()">Update Data</button>
                 </div>
 
                 <script>
