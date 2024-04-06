@@ -173,9 +173,11 @@ h2 {
 
 h1 {
     font-size: 23px;
-
 }
 
+p > a:hover {
+    color: #7CB9E8;
+}
 /* ----- CHARTS ----- */
 .charts {
     gap: 20px;
@@ -225,16 +227,28 @@ a:visited, .sidebar-list-item:hover {
 }
 
 /* ----- Table ----- */
-table, td {
-    border: 3px solid #212121;
-    border-collapse: collapse;
+table {
+    border: 1px solid #212121;
+    border-collapse: separate;
     text-align: center;
     background-color: white;
     box-shadow: 0 6px 7px -3px rgb(21,21,21);
+    border-radius: 8px;
+    border-spacing: 0px;
+    color: #212121;
 }
 
-th, td {
-    color: #212121;
+td {
+    border-left: 2px solid #212121;
+    border-top: 2px solid #212121;
+}
+
+th {
+    border-bottom: 1px solid #212121;
+}
+
+td:first-child, th:first-child {
+    border-left: none;;
 }
 
 /* ----- Media Queries ----- */

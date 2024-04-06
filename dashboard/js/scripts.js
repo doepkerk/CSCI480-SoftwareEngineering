@@ -347,7 +347,7 @@ function updateMonthChart() {
           newDownload.textContent = parseFloat(dailyDownload[i]) + " Mbps";
 
           [newTimeStamp, newUpload, newDownload].forEach(cell => {
-            cell.style.border = "3px solid #212121";
+            cell.style.border = "1px solid #212121";
             cell.style.textAlign = "center";
             cell.style.backgroundColor = "white";
             cell.style.boxShadow = "0 6px 7px -3px rgb(21,21,21)";
@@ -362,8 +362,8 @@ function updateMonthChart() {
       }
 
       const table = document.querySelector("tableData");
-      table.style.border = "3px solid #212121";
-      table.style.borderCollapse = "collapse";
+      table.style.border = "1px solid #212121";
+      table.style.borderCollapse = "separate";
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
@@ -445,7 +445,7 @@ function updateReportPast24() {
         newDownload.textContent = hourlyDownload[i] + " Mbps";
 
         [newTimeStamp, newUpload, newDownload].forEach(cell => {
-          cell.style.border = "3px solid #212121";
+          cell.style.border = "1px solid #212121";
           cell.style.textAlign = "center";
           cell.style.backgroundColor = "white";
           cell.style.boxShadow = "0 6px 7px -3px rgb(21,21,21)";
@@ -459,8 +459,8 @@ function updateReportPast24() {
       }
 
       const table = document.querySelector("tableData");
-      table.style.border = "3px solid #212121";
-      table.style.borderCollapse = "collapse";
+      table.style.border = "1px solid #212121";
+      table.style.borderCollapse = "separate";
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
@@ -550,7 +550,7 @@ function updateReportPastWeek() {
         newDownload.textContent = parseFloat(down[i]) + " Mbps";
 
         [newTimeStamp, newUpload, newDownload].forEach(cell => {
-          cell.style.border = "3px solid #212121";
+          cell.style.border = "1px solid #212121";
           cell.style.textAlign = "center";
           cell.style.backgroundColor = "white";
           cell.style.boxShadow = "0 6px 7px -3px rgb(21,21,21)";
@@ -564,8 +564,8 @@ function updateReportPastWeek() {
       }
 
       const table = document.querySelector("tableData");
-      table.style.border = "3px solid #212121";
-      table.style.borderCollapse = "collapse";
+      table.style.border = "1px solid #212121";
+      table.style.borderCollapse = "separate";
 
     }).catch(error => console.error('Error fetching JSON:', error));
 }
