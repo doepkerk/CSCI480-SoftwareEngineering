@@ -1,3 +1,6 @@
+// JS File
+// Filename: scripts.js
+// Authors: Reilly Cozette, Keith Doepker
 "use strict"
 
 // SIDEBAR TOGGLE
