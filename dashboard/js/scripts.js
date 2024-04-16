@@ -1,10 +1,10 @@
 // JS File
 // Filename: scripts.js
 // Authors: Reilly Cozette, Keith Doepker
+
 "use strict"
 
-// SIDEBAR TOGGLE
-
+// Sidebar Toggle
 var sidebarOpen = false;
 var sidebar = document.getElementById("sidebar");
 
@@ -22,7 +22,7 @@ function closeSidebar() {
   }
 }
 
-// REPORT DOWNLOAD PDF
+// Report download pdf
 function downloadPDFWithBrowserPrint() {
   window.print();
 }
@@ -111,7 +111,7 @@ function updateChart() {
       let hourlyUpload = [];
       let hourly = [];
 
-      // stores 24 hours worth of data into 3 arrays
+      // Stores 24 hours worth of data into 3 arrays
       function getHourly(upload, download, hour) {
         for (let i = hour.length - 1; i > (hour.length - 25); i--) {
           hourlyUpload.push(upload[i]);
@@ -136,7 +136,7 @@ function updateChart() {
     }).catch(error => console.error('Error fetching JSON:', error));
 }
 
-// Update charts for speeds of past 7 days
+// Updates charts for speeds of past 7 days
 function updateWeekChart() {
   fetch('speeds.json')
     .then(response => response.text())
@@ -163,18 +163,18 @@ function updateWeekChart() {
 
       const timestamps = time.map(timestamp => new Date(timestamp));
 
-      // Find the most recent timestamp
+      // Finds the most recent timestamp
       var mostRecentTimestamp = new Date(Math.max(...timestamps));
 
       speedConversion(down);
       speedConversion(up);
 
-      // Function to calculate daily averages for the past 7 days
+      // Calculates daily averages for the past 7 days
       function getPastWeekAverages(text, timestamps, mostRecentTimestamp) {
         let dailyDownload = [];
         let dailyUpload = [];
         let days = [];
-        let currentDate = new Date(mostRecentTimestamp); // Start from the most recent timestamp
+        let currentDate = new Date(mostRecentTimestamp); // Starts from the most recent timestamp
 
         for (let i = 0; i < 7; i++) {
           let sumDownload = 0;
@@ -403,7 +403,7 @@ function updateMonthChart() {
     }).catch(error => console.error('Error fetching JSON:', error));
 }
 
-
+// Updates charts for Past 24 Hours
 function updateReportPast24() {
   fetch('speeds.json')
     .then(response => response.text())
@@ -500,7 +500,7 @@ function updateReportPast24() {
     }).catch(error => console.error('Error fetching JSON:', error));
 }
 
-// Update Report for Past Week Averages
+// Update report tables for Past Week Averages
 function updateReportPastWeek() {
   fetch('speeds.json')
     .then(response => response.text())
@@ -573,6 +573,7 @@ function updateReportPastWeek() {
     }).catch(error => console.error('Error fetching JSON:', error));
 }
 
+// Updates report table for Past Month
 function updateReportMonth() {
   fetch('speeds.json')
     .then(response => response.text())
@@ -628,7 +629,7 @@ function updateReportMonth() {
       let sumUpAverage = 0;
       let count = 0;
 
-      // Function to calculate daily averages for the month
+      // Calculates daily averages for the month
       function getMonthAverages(text, timestamps) {
 
         for (let i = 1; i <= new Date(currentYear, currentMonth, 0).getDate(); i++) {
