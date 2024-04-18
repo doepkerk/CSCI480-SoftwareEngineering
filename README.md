@@ -13,6 +13,7 @@ RECOMMENDATIONS:
 * Further investigation on other speedtest software could be done and cross-analysis between these softwares could be used to monitor internet speeds.
 * The website does not store data over multiple months so it is up to the user to retain record of the summary data once it is provided through the website via PNG or PDF.
 
+CODE DIAGRAM:
 ![image](https://github.com/doepkerk/CSCI480-SoftwareEngineering/assets/143119090/e2564869-027a-42f6-8d6a-4922e55c41cb)
 
 PREREQUISITES: 
@@ -28,8 +29,8 @@ Ensure you have the prerequisites mentioned above, then:
    (NOTE: Do NOT add any file extensions to the file name, leave it as "speed")
 3. Start the Python web server by executing the startserver.sh script.
 4. You should now be able to access the dashboard by going to (hostname).local:8000.
-a
-Troubleshooting
+
+TROUBLESHOOTING
 * You may need to adjust file paths if your username, or hostname differ from the paths in the files.
 * If the cron job isn't logging speeds, ensure you have the right permissions for the files.
 
