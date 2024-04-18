@@ -2,6 +2,17 @@
 
 This software uses speedtest-cli to conduct internet speed tests to monitor upload and download speeds. This data is being stored via a JSON file (speed.json) and uploaded to HTML pages using Javascript. ApexChart.js library is used to make the graphs. 
 
+IMPLEMENTATIONS:
+* Speedtest-cli was chosen due to its accuracy and usability for this project.
+* ApexChart.js was chosen due to its design, functionality and usability. Its format allowed to the most interaction from a user prospect and was more visually pleasing than other JavaScript libraries. 
+* Cron jobs were used to execute the speedtest every hour to keep data updated often for the monitor.
+* HTML/CSS were used to create the webpage.
+* A python server is used to host the website.
+
+RECOMMENDATIONS: 
+* Further investigation on other speedtest software could be done and cross-analysis between these softwares could be used to monitor internet speeds.
+* The website does not store data over multiple months so it is up to the user to retain record of the summary data once it is provided through the website via PNG or PDF.
+
 Prerequisites: 
 Python 3
 
