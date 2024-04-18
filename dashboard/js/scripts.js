@@ -1,6 +1,7 @@
 // JS File
 // Filename: scripts.js
 // Authors: Reilly Cozette, Keith Doepker
+// For more information on ApexCharts.js go to: https://apexcharts.com/docs/creating-first-javascript-chart/
 
 "use strict"
 
@@ -35,6 +36,7 @@ function speedConversion(speeds) {
   }
 }
 
+// Sets Format of Charts using ApexCharts.js
 function setupChart(lineData, labels, chartTitle) {
   var lineChartOptions = {
     series: [{
@@ -102,6 +104,7 @@ function updateChart() {
         }
       });
 
+      // Formats times into: HH:MM 
       const formattedTimes = time.map(timestamp => {
         const date = new Date(timestamp);
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -138,6 +141,9 @@ function updateChart() {
 
 // Updates charts for speeds of past 7 days
 function updateWeekChart() {
+  // Parses data from JSON file into json object format.
+  // Needed to convert into text because data was in format of one JSON object
+  // per line instead of array of JSON objects.
   fetch('speeds.json')
     .then(response => response.text())
     .then(text => {
@@ -176,11 +182,13 @@ function updateWeekChart() {
         let days = [];
         let currentDate = new Date(mostRecentTimestamp); // Starts from the most recent timestamp
 
+        // Loop through each of the 7 days in week
         for (let i = 0; i < 7; i++) {
           let sumDownload = 0;
           let sumUpload = 0;
           let count = 0;
 
+          // Gets the average speeds for each 24 hours
           for (let j = 0; j < timestamps.length; j++) {
             const timestampDate = new Date(timestamps[j]);
             if (
@@ -194,6 +202,8 @@ function updateWeekChart() {
             }
           }
 
+          // Averages are stored in appropriate arrays
+          // Count should always equal 24
           if (count > 0) {
             dailyDownload.push((sumDownload / count).toFixed(2));
             dailyUpload.push((sumUpload / count).toFixed(2));
@@ -208,8 +218,9 @@ function updateWeekChart() {
           currentDate.setDate(currentDate.getDate() - 1); // Move to previous day
         }
 
+        // Reverse to maintain chronological order
         return {
-          dailyDownload: dailyDownload.reverse(), // Reverse to maintain chronological order
+          dailyDownload: dailyDownload.reverse(), 
           dailyUpload: dailyUpload.reverse(),
           days: days.reverse()
         };
@@ -251,6 +262,7 @@ function updateWeekChart() {
         tableBody.appendChild(newRow);
       }
 
+      // Formatting/Styles for table
       const table = document.querySelector("tableData");
       table.style.border = "3px solid #212121";
       table.style.borderCollapse = "collapse";
