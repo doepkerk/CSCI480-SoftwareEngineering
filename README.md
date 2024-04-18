@@ -1,6 +1,6 @@
 # CSCI480-SoftwareEngineering
 
-This software uses speedtest-cli to conduct internet speed tests to monitor upload and download speeds. This data is being stored via a JSON file (speed.json) and uploaded to HTML pages using Javascript. ApexChart.js library is used to make the graphs. 
+This software uses speedtest-cli to conduct internet speed tests to monitor upload and download speeds. This data is being stored via a JSON file (speeds.json) and uploaded to HTML pages using Javascript. ApexChart.js library is used to make the graphs.
 
 IMPLEMENTATIONS:
 * Speedtest-cli was chosen due to its accuracy and usability for this project.
