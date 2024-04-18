@@ -1,5 +1,7 @@
 # CSCI480-SoftwareEngineering
 
+This software uses speedtest-cli to conduct internet speed tests to monitor upload and download speeds. This data is being stored via a JSON file (speed.json) and uploaded to HTML pages using Javascript. ApexChart.js library is used to make the graphs. 
+
 Prerequisites: 
 Python 3
 
@@ -17,3 +19,5 @@ a
 Troubleshooting
 * You may need to adjust file paths if your username, or hostname differ from the paths in the files.
 * If the cron job isn't logging speeds, ensure you have the right permissions for the files.
+
+
