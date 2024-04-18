@@ -13,12 +13,14 @@ RECOMMENDATIONS:
 * Further investigation on other speedtest software could be done and cross-analysis between these softwares could be used to monitor internet speeds.
 * The website does not store data over multiple months so it is up to the user to retain record of the summary data once it is provided through the website via PNG or PDF.
 
-Prerequisites: 
+![image](https://github.com/doepkerk/CSCI480-SoftwareEngineering/assets/143119090/e2564869-027a-42f6-8d6a-4922e55c41cb)
+
+PREREQUISITES: 
 Python 3
 
 Speedtest-cli, which can be obtained here: https://github.com/sivel/speedtest-cli
 
-How to install:
+HOW TO INSTALL:
 
 Ensure you have the prerequisites mentioned above, then:
 1. Unzip the files in /home/admin/website/CSCI480-SoftwareEngineering-main/
