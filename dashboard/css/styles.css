@@ -183,7 +183,7 @@ h1 {
 p > a:hover {
     color: #7CB9E8;
 }
-/* ----- CHARTS ----- */
+/* ----- Charts ----- */
 .charts {
     gap: 20px;
     margin-top: 30px;
@@ -207,7 +207,7 @@ p > a:hover {
     color: black;
 }
 
-/* ----- Button ----- */
+/* ----- Buttons ----- */
 button {
     text-align: center;
     width: 25%;
@@ -257,7 +257,7 @@ td:first-child, th:first-child {
 }
 
 /* ----- Media Queries ----- */
-
+/* Responsive web design for medium screens */
 /* Medium <= 992px */
 @media screen and (max-width: 992px) {
     .grid-container {
@@ -281,6 +281,7 @@ td:first-child, th:first-child {
     }
 }
 
+/* Responsive web design for small and extra small screens */
 /* Small <= 768px */
 @media screen and (max-width: 768px) {
     .main-cards {
