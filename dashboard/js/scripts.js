@@ -272,6 +272,7 @@ function updateWeekChart() {
 
 // Updates charts for speeds of current month
 function updateMonthChart() {
+  // JSON data is converted to text and parsed to JSON format
   fetch('speeds.json')
     .then(response => response.text())
     .then(text => {
@@ -334,11 +335,13 @@ function updateMonthChart() {
         let dailyUpload = [];
         let days = [];
 
+        // Loop through each day of the month
         for (let i = 1; i <= new Date(currentYear, currentMonth, 0).getDate(); i++) {
           let sumDownload = 0;
           let sumUpload = 0;
           let count = 0;
 
+          // Loop through 24 hours of each day and add to sum
           for (let j = 0; j < timestamps.length; j++) {
             const entryDate = new Date(timestamps[j]);
             if (entryDate.getFullYear() === currentYear && entryDate.getMonth() + 1 === currentMonth && entryDate.getDate() === i) {
@@ -347,7 +350,7 @@ function updateMonthChart() {
               count++;
             }
           }
-
+          // Calculate average of each day
           if (count > 0) {
             dailyDownload.push((sumDownload / count).toFixed(2));
             dailyUpload.push((sumUpload / count).toFixed(2));
@@ -408,6 +411,7 @@ function updateMonthChart() {
         }
       }
 
+      // Table styles
       const table = document.querySelector("tableData");
       table.style.border = "3px solid #212121";
       table.style.borderCollapse = "collapse";
@@ -417,6 +421,7 @@ function updateMonthChart() {
 
 // Updates charts for Past 24 Hours
 function updateReportPast24() {
+  // JSON data is converted to text and parsed to JSON format
   fetch('speeds.json')
     .then(response => response.text())
     .then(text => {
@@ -513,7 +518,9 @@ function updateReportPast24() {
 }
 
 // Update report tables for Past Week Averages
+// Very similar to the updateWeekChart() function
 function updateReportPastWeek() {
+  // JSON data is converted to text and parsed to JSON format
   fetch('speeds.json')
     .then(response => response.text())
     .then(text => {
@@ -587,6 +594,7 @@ function updateReportPastWeek() {
 
 // Updates report table for Past Month
 function updateReportMonth() {
+  // JSON data is converted to text and parsed to JSON format
   fetch('speeds.json')
     .then(response => response.text())
     .then(text => {
@@ -664,7 +672,7 @@ function updateReportMonth() {
       const upTD = document.getElementById("monthUploadAverages");
       upTD.textContent = avgUpload + " Mbps";
 
-      const downTD = document.getElementById("monthDownloadAverages");
+      const downTD = documentj.getElementById("monthDownloadAverages");
       downTD.textContent = avgDownload + " Mbps";
 
     }).catch(error => console.error('Error fetching JSON:', error));
