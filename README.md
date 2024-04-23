@@ -5,8 +5,9 @@ DESCRIPTION:
 
 IMPLEMENTATIONS:
 * Speedtest-cli was chosen due to its accuracy and usability for this project.
+* Speedtest-cli also allows its output to be formatted to JSON, allowing a high degree of flexability.
 * ApexChart.js was chosen due to its design, functionality and usability. Its format allowed to the most interaction from a user prospect and was more visually pleasing than other JavaScript libraries. 
-* Cron jobs were used to execute the speedtest every hour to keep data updated often for the monitor.
+* Cron jobs were used to execute the speedtest every hour to keep data updated often for the monitor. This was chosen since it's built into linux.
 * HTML/CSS were used to create the webpage.
 * A python server is used to host the website.
 
